@@ -177,6 +177,8 @@ class Game:
             if self.charPosition != 0:
                 self.writtenText += ' '
                 self.charPosition += 1
+            else:
+                self.outputTextCharPos -= 1
         self.outputTextCharPos += 1
 
     def inBounds(self):
