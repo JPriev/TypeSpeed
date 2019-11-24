@@ -116,7 +116,6 @@ class Game:
         pygame.display.update()
 
     def info_text(self):
-        pass
         self.input_text = self.font.render(self.written_text, True, self.white)
         self.timer_text = self.font.render('Timer: ' + str(self.timer), True, self.white)
         self.score_text = self.font.render('Score: ' + str(self.score), True, self.white)
