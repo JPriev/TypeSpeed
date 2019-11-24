@@ -3,7 +3,6 @@ from game_v2 import Game
 from rankings import Rankings
 
 pygame.init()
-
 pygame.display.set_caption('Type Speed')
 
 
@@ -22,58 +21,59 @@ class Menu:
         self.win = pygame.display.set_mode((self.width, self.height))
         self.bg = pygame.image.load('bg.png')
         self.font = pygame.font.SysFont(None, 50)
-        self.startText = self.font.render(self.start, True, self.black)
-        self.rankingsText = self.font.render(self.rankings, True, self.black)
-        self.startButton = self.drawRect(self.startText, 300)
-        self.rankingsButton = self.drawRect(self.rankingsText, 400)
+        self.start_text = self.font.render(self.start, True, self.black)
+        self.rankings_text = self.font.render(self.rankings, True, self.black)
+        self.start_button = self.draw_rect(self.start_text, 300)
+        self.rankings_button = self.draw_rect(self.rankings_text, 400)
 
-    def redrawMenuWindow(self):
+    def redraw_menu_window(self):
         self.win.blit(self.bg, (0, 0))
-        self.win.blit(self.startText, self.drawRect(self.startText, 300))
-        self.win.blit(self.rankingsText, self.drawRect(self.rankingsText, 400))
+        self.win.blit(self.start_text, self.draw_rect(self.start_text, 300))
+        self.win.blit(self.rankings_text, self.draw_rect(self.rankings_text, 400))
         pygame.display.update()
 
-    def drawRect(self, text, height):
-        textRect = text.get_rect()
-        textRect.center = (self.width // 2, height)
-        return textRect
+    def draw_rect(self, text, height):
+        text_rect = text.get_rect()
+        text_rect.center = (self.width // 2, height)
+        return text_rect
 
     def menu(self):
         run = True
         while run:
-            self.redrawMenuWindow()
+            self.redraw_menu_window()
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     run = False
 
                 pos = pygame.mouse.get_pos()
-                if self.startButton.collidepoint(pos):
-                    self.startText = self.mouseMotionOnText(self.start, self.white)
+                if self.start_button.collidepoint(pos):
+                    self.start_text = self.mouse_motion_on_text(self.start, self.white)
                     if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                         username, wpm = Game().run()
                         print(username, wpm)
-                        Rankings().writeData(username, wpm)
+                        Rankings().write_data(username, wpm)
                 else:
-                    self.startText = self.mouseMotionOnText(self.start, self.black)
+                    self.start_text = self.mouse_motion_on_text(self.start, self.black)
 
-                if self.rankingsButton.collidepoint(pos):
-                    self.rankingsText = self.mouseMotionOnText(self.rankings, self.white)
+                if self.rankings_button.collidepoint(pos):
+                    self.rankings_text = self.mouse_motion_on_text(self.rankings, self.white)
                     if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                        self.showRankings()
+                        self.show_rankings()
                 else:
-                    self.rankingsText = self.mouseMotionOnText(self.rankings, self.black)
+                    self.rankings_text = self.mouse_motion_on_text(self.rankings, self.black)
 
             pygame.display.update()
         pygame.quit()
 
-    def showRankings(self):
+    @staticmethod
+    def show_rankings():
         display = True
         while display:
-            Rankings().displayRankings()
+            Rankings().display_rankings()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE):
                     display = False
 
-    def mouseMotionOnText(self, text, color):
+    def mouse_motion_on_text(self, text, color):
         return self.font.render(text, True, color)
