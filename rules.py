@@ -46,7 +46,7 @@ class Rules:
                 self.__char_position += 1
                 self.__output_text_char_pos += 1
 
-    def rules_result(self, key, run):  # gali reik nuresetint charPos
+    def rules_result(self, key, run):
         if key == 'backspace':
             if self.__char_position > 0:
                 self.__char_position -= 1
