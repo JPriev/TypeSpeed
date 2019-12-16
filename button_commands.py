@@ -14,7 +14,7 @@ class StartButton:
 
     @staticmethod
     def start_button_pressed(event_type):
-        if event_type == pygame.MOUSEBUTTONDOWN:  # command pattern cia
+        if event_type == pygame.MOUSEBUTTONDOWN:
             fe, rules = Game().run()
             username, wpm = Result(fe, rules).result()
             Rankings().write_data(username, wpm)
